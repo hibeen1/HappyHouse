@@ -84,12 +84,6 @@ const routes = [
         component: () =>
           import("@/components/announcement/AnnouncementModify.vue"),
       },
-      {
-        path: "delete/:articleno",
-        name: "announcementDelete",
-        component: () =>
-          import("@/components/announcement/AnnouncementDelete.vue"),
-      },
     ],
   },
   {
@@ -131,7 +125,7 @@ const routes = [
   {
     path: "/house",
     name: "house",
-    // beforeEnter: onlyAuthUser,
+    beforeEnter: onlyAuthUser,
     component: () => import("@/views/HouseView.vue"),
   },
   {

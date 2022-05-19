@@ -42,7 +42,7 @@
 
 <script>
 // import moment from "moment";
-import http from "@/api/http";
+import { getArticle, deleteArticle } from "@/api/announcement";
 
 export default {
   name: "AnnouncementDetail",
@@ -59,11 +59,15 @@ export default {
     },
   },
   created() {
-    http
-      .get(`/announcement/${this.$route.params.articleno}`)
-      .then(({ data }) => {
-        this.article = data;
-      });
+    getArticle(
+      this.$route.params.articleno,
+      (response) => {
+        this.article = response.data;
+      },
+      (error) => {
+        console.log("삭제시 에러발생!!", error);
+      },
+    );
   },
   methods: {
     listArticle() {
@@ -78,9 +82,8 @@ export default {
     },
     deleteArticle() {
       if (confirm("정말로 삭제?")) {
-        this.$router.replace({
-          name: "announcementDelete",
-          params: { articleno: this.article.articleno },
+        deleteArticle(this.article.articleno, () => {
+          this.$router.push({ name: "announcementList" });
         });
       }
     },

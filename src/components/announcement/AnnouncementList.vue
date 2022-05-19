@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import http from "@/api/http";
+import { listArticle } from "@/api/announcement.js";
 import AnnouncementListItem from "@/components/announcement/item/AnnouncementListItem";
 
 export default {
@@ -54,9 +54,21 @@ export default {
     };
   },
   created() {
-    http.get(`/announcement`).then(({ data }) => {
-      this.articles = data;
-    });
+    let param = {
+      pg: 1,
+      spp: 20,
+      key: null,
+      word: null,
+    };
+    listArticle(
+      param,
+      (response) => {
+        this.articles = response.data;
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
   },
   methods: {
     moveWrite() {

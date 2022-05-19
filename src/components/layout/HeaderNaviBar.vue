@@ -1,12 +1,6 @@
 <template>
   <div>
-    <header id="index_header" class="text-center mb-1">
-      <router-link to="/">
-        <img id="logo" src="@/assets/happyhouse.png" onclick="" />
-      </router-link>
-    </header>
-
-    <b-navbar toggleable="lg" type="dark rounded" variant="dark">
+    <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand href="#">
         <router-link to="/">
           <img
@@ -28,15 +22,15 @@
             ></b-nav-item
           >
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'board' }" class="link"
-              ><b-icon icon="journal" font-scale="1.5"></b-icon>
-              게시판</router-link
-            ></b-nav-item
-          >
-          <b-nav-item href="#"
             ><router-link :to="{ name: 'announcement' }" class="link"
               ><b-icon icon="exclamation-circle" font-scale="1.5"></b-icon>
               공지사항</router-link
+            ></b-nav-item
+          >
+          <b-nav-item href="#"
+            ><router-link :to="{ name: 'board' }" class="link"
+              ><b-icon icon="journal" font-scale="1.5"></b-icon>
+              게시판</router-link
             ></b-nav-item
           >
           <b-nav-item href="#"
