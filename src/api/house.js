@@ -19,8 +19,12 @@ function dongList(params, success, fail) {
 //   house.get(``, { params: params }).then(success).catch(fail);
 // }
 
-function houseList2(params, success, fail) {
+function searchByDong(params, success, fail) {
   api.get(`/map/apt`, { params: params }).then(success).catch(fail);
 }
 
-export { sidoList, gugunList, dongList, houseList2 };
+function searchByName(params, success, fail) {
+  api.get(`/map/aptName`, { params: params }).then(success).catch(fail);
+}
+
+export { sidoList, gugunList, dongList, searchByDong, searchByName };

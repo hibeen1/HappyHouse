@@ -3,14 +3,14 @@
     <table>
       <tr>
         <td>
-          <div id="map" style="width: 100%; height: 800px"></div>
+          <div id="map" style="width: 100%; height: 1000px"></div>
         </td>
       </tr>
-      <tr v-if="house">
+      <!-- <tr v-if="house">
         <td>
           <h3>{{ house.aptName }}</h3>
         </td>
-      </tr>
+      </tr> -->
       <!-- <tr>
       <td>
         <b-img :src="require('@/assets/apt.png')" fluid-grow></b-img>
