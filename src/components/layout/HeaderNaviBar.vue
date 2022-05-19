@@ -1,12 +1,6 @@
 <template>
   <div>
-    <header id="index_header" class="text-center mb-1">
-      <router-link to="/">
-        <img id="logo" src="@/assets/happyhouse.png" onclick="" />
-      </router-link>
-    </header>
-
-    <b-navbar toggleable="lg" type="dark rounded" variant="dark">
+    <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand href="#">
         <router-link to="/">
           <img
@@ -28,15 +22,15 @@
             ></b-nav-item
           >
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'board' }" class="link"
-              ><b-icon icon="journal" font-scale="1.5"></b-icon>
-              게시판</router-link
-            ></b-nav-item
-          >
-          <b-nav-item href="#"
             ><router-link :to="{ name: 'announcement' }" class="link"
               ><b-icon icon="exclamation-circle" font-scale="1.5"></b-icon>
               공지사항</router-link
+            ></b-nav-item
+          >
+          <b-nav-item href="#"
+            ><router-link :to="{ name: 'board' }" class="link"
+              ><b-icon icon="journal" font-scale="1.5"></b-icon>
+              게시판</router-link
             ></b-nav-item
           >
           <b-nav-item href="#"
@@ -59,6 +53,22 @@
           >
         </b-navbar-nav>
 
+        <!-- <b-navbar-nav class="ml-auto" v-if="userInfo.userid === 'admin'">
+          <b-nav-item class="align-self-center"
+            ><b-avatar
+              variant="primary"
+              v-text="userInfo ? userInfo.userid.charAt(0).toUpperCase() : ''"
+            ></b-avatar
+            >{{ userInfo.username }}({{ userInfo.userid }})님
+            환영합니다.</b-nav-item
+          >
+          <b-nav-item
+            class="link align-self-center"
+            @click.prevent="onClickLogout"
+            >로그아웃</b-nav-item
+          >
+        </b-navbar-nav> -->
+
         <b-navbar-nav class="ml-auto" v-if="userInfo">
           <b-nav-item class="align-self-center"
             ><b-avatar
@@ -68,11 +78,20 @@
             >{{ userInfo.username }}({{ userInfo.userid }})님
             환영합니다.</b-nav-item
           >
-          <b-nav-item class="align-self-center"
+          <b-nav-item
+            class="align-self-center"
+            v-if="userInfo.userid === 'admin'"
             ><router-link
               :to="{ name: 'mypage' }"
               class="link align-self-center"
-              >내정보보기</router-link
+              >회원관리</router-link
+            ></b-nav-item
+          >
+          <b-nav-item class="align-self-center" v-else
+            ><router-link
+              :to="{ name: 'mypage' }"
+              class="link align-self-center"
+              >마이페이지</router-link
             ></b-nav-item
           >
           <b-nav-item

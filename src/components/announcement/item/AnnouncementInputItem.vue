@@ -10,7 +10,7 @@
         >
           <b-form-input
             id="userid"
-            :disabled="isUserid"
+            disabled
             v-model="article.userid"
             type="text"
             required
@@ -60,7 +60,10 @@
 </template>
 
 <script>
-import http from "@/api/http";
+import { writeArticle, getArticle, modifyArticle } from "@/api/announcement";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
 
 export default {
   name: "AnnouncementInputItem",
@@ -72,24 +75,32 @@ export default {
         subject: "",
         content: "",
       },
-      isUserid: false,
     };
   },
   props: {
     type: { type: String },
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   created() {
     if (this.type === "modify") {
-      http
-        .get(`/announcement/${this.$route.params.articleno}`)
-        .then(({ data }) => {
+      getArticle(
+        this.$route.params.articleno,
+        ({ data }) => {
           // this.article.articleno = data.article.articleno;
           // this.article.userid = data.article.userid;
           // this.article.subject = data.article.subject;
           // this.article.content = data.article.content;
           this.article = data;
-        });
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
       this.isUserid = true;
+    } else {
+      this.article.userid = this.userInfo.userid;
     }
   },
   methods: {
@@ -125,30 +136,34 @@ export default {
       this.$router.push({ name: "announcementList" });
     },
     registArticle() {
-      http
-        .post(`/announcement`, {
+      writeArticle(
+        {
           userid: this.article.userid,
           subject: this.article.subject,
           content: this.article.content,
-        })
-        .then(({ data }) => {
+        },
+        ({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";
           if (data === "success") {
             msg = "등록이 완료되었습니다.";
           }
           alert(msg);
           this.moveList();
-        });
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
     },
     modifyArticle() {
-      http
-        .put(`/announcement/${this.article.articleno}`, {
+      modifyArticle(
+        {
           articleno: this.article.articleno,
           userid: this.article.userid,
           subject: this.article.subject,
           content: this.article.content,
-        })
-        .then(({ data }) => {
+        },
+        ({ data }) => {
           let msg = "수정 처리시 문제가 발생했습니다.";
           if (data === "success") {
             msg = "수정이 완료되었습니다.";
@@ -156,7 +171,11 @@ export default {
           alert(msg);
           // 현재 route를 /list로 변경.
           this.$router.push({ name: "announcementList" });
-        });
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
     },
     moveList() {
       this.$router.push({ name: "announcementList" });

@@ -85,12 +85,6 @@ const routes = [
         component: () =>
           import("@/components/announcement/AnnouncementModify.vue"),
       },
-      {
-        path: "delete/:articleno",
-        name: "announcementDelete",
-        component: () =>
-          import("@/components/announcement/AnnouncementDelete.vue"),
-      },
     ],
   },
   {

@@ -7,7 +7,7 @@
     </b-row>
     <b-row class="mb-1">
       <b-col class="text-right">
-        <b-button variant="outline-primary" @click="moveWrite()"
+        <b-button variant="outline-primary" @click="moveWrite()" v-if="userInfo"
           >글쓰기</b-button
         >
       </b-col>
@@ -42,6 +42,9 @@
 <script>
 import { listArticle } from "@/api/board.js";
 import BoardListItem from "@/components/board/item/BoardListItem";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
 
 export default {
   name: "BoardList",
@@ -74,6 +77,9 @@ export default {
     moveWrite() {
       this.$router.push({ name: "boardRegister" });
     },
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
 };
 </script>
