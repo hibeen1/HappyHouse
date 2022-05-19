@@ -7,7 +7,10 @@
     </b-row>
     <b-row class="mb-1">
       <b-col class="text-right">
-        <b-button variant="outline-primary" @click="moveWrite()"
+        <b-button
+          variant="outline-primary"
+          @click="moveWrite()"
+          v-if="userInfo.userid === 'admin'"
           >글쓰기</b-button
         >
       </b-col>
@@ -42,6 +45,9 @@
 <script>
 import { listArticle } from "@/api/announcement.js";
 import AnnouncementListItem from "@/components/announcement/item/AnnouncementListItem";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
 
 export default {
   name: "AnnouncementList",
@@ -74,6 +80,9 @@ export default {
     moveWrite() {
       this.$router.push({ name: "announcementRegister" });
     },
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
 };
 </script>
