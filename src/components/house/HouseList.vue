@@ -15,7 +15,7 @@
 
 <script>
 import HouseListItem from "@/components/house/HouseListItem.vue";
-import { mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 const houseStore = "houseStore";
 
@@ -32,6 +32,12 @@ export default {
     // houses() {
     //   return this.$store.state.houses;
     // },
+  },
+  created() {
+    this.CLEAR_HOUSE_LIST();
+  },
+  methods: {
+    ...mapMutations(houseStore, ["CLEAR_HOUSE_LIST"]),
   },
 };
 </script>

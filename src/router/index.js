@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+// import HomeView from "../views/HomeView.vue";
+import HouseView from "@/views/HouseView.vue";
 
 import store from "@/store/index.js";
 
@@ -29,7 +30,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: HouseView,
   },
   {
     path: "/user",
@@ -132,7 +133,7 @@ const routes = [
     path: "/house",
     name: "house",
     // beforeEnter: onlyAuthUser,
-    component: () => import("@/views/HouseView.vue"),
+    component: HouseView,
   },
   {
     path: "/todo",

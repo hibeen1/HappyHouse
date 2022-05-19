@@ -47,6 +47,10 @@ const houseStore = {
       state.houses = houses;
       // console.log(houses);
     },
+    CLEAR_HOUSE_LIST(state) {
+      state.houses = [];
+      state.house = null;
+    },
     SET_DETAIL_HOUSE(state, house) {
       // console.log("Mutations", house);
       state.house = house;
