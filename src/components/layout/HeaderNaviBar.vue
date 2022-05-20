@@ -53,22 +53,6 @@
           >
         </b-navbar-nav>
 
-        <!-- <b-navbar-nav class="ml-auto" v-if="userInfo.userid === 'admin'">
-          <b-nav-item class="align-self-center"
-            ><b-avatar
-              variant="primary"
-              v-text="userInfo ? userInfo.userid.charAt(0).toUpperCase() : ''"
-            ></b-avatar
-            >{{ userInfo.username }}({{ userInfo.userid }})님
-            환영합니다.</b-nav-item
-          >
-          <b-nav-item
-            class="link align-self-center"
-            @click.prevent="onClickLogout"
-            >로그아웃</b-nav-item
-          >
-        </b-navbar-nav> -->
-
         <b-navbar-nav class="ml-auto" v-if="userInfo">
           <b-nav-item class="align-self-center"
             ><b-avatar
@@ -82,7 +66,7 @@
             class="align-self-center"
             v-if="userInfo.userid === 'admin'"
             ><router-link
-              :to="{ name: 'mypage' }"
+              :to="{ name: 'houseMap' }"
               class="link align-self-center"
               >회원관리</router-link
             ></b-nav-item
