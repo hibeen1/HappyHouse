@@ -32,7 +32,7 @@ const houseStore = {
     },
     SET_DONG_LIST(state, dongs) {
       dongs.forEach((dong) => {
-        state.dongs.push({ value: dong.dongCode, text: dong.dongName });
+        state.dongs.push({ value: dong.dongCode, text: dong.dong });
       });
     },
     CLEAR_SIDO_LIST(state) {
@@ -124,7 +124,7 @@ const houseStore = {
     //   );
     // },
     searchByDong: ({ commit }, dongCode) => {
-      const params = { dong: dongCode };
+      const params = { dong: dongCode, dealYear: 2015, dealMonth: 1 };
       searchByDong(
         params,
         (response) => {

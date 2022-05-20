@@ -28,5 +28,6 @@ module.exports = {
         useTabs: false,
       },
     ],
+    "no-unused-vars": "off"
   },
 };
