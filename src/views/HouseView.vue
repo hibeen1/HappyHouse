@@ -1,27 +1,30 @@
 <template>
-  <b-container class="bv-example-row mt-3 text-center">
+  <div class="bv-example-row mt-3 text-center abs">
     <h3 class="underline-orange">
       <b-icon icon="house-fill"></b-icon> House Service
     </h3>
-    <b-row>
-      <b-col>
-        <house-search-bar></house-search-bar>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="6" align="left">
-        <house-list />
-      </b-col>
-      <b-col cols="6">
-        <house-detail />
-      </b-col>
-    </b-row>
-  </b-container>
+    <table
+      style="margin-bottom: 50px; table-layout: fixed"
+      class="table-bordered"
+    >
+      <tr height="200">
+        <td style="width: 20%">
+          <house-search-bar />
+        </td>
+        <td rowspan="2" style="width: 80%">
+          <house-detail />
+        </td>
+      </tr>
+      <tr>
+        <td class="align-top"><house-list /></td>
+      </tr>
+    </table>
+  </div>
 </template>
 <script>
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import HouseList from "@/components/house/HouseList.vue";
-import HouseDetail from "@/components/house/HouseDetail.vue";
+import HouseDetail from "@/components/house/HouseDetailTest.vue";
 
 export default {
   name: "HouseView",
@@ -40,5 +43,11 @@ export default {
     rgba(255, 255, 255, 0) 70%,
     rgba(231, 149, 27, 0.3) 30%
   );
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  height: 100%;
 }
 </style>

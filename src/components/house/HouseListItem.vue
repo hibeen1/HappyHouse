@@ -5,16 +5,17 @@
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
     :class="{ 'mouse-over-bgcolor': isColor }"
+    style="border: 2px solid mediumslateblue; border-radius: 8px"
   >
-    <b-col cols="2" class="text-center align-self-center">
+    <!-- <b-col cols="1">
       <b-img
         thumbnail
-        src="https://picsum.photos/250/250/?image=58"
+        :src="require(`@/assets/ssafy_logo.png`)"
         alt="Image 1"
       ></b-img>
-    </b-col>
-    <b-col cols="10" class="align-self-center">
-      [{{ house.aptCode }}] {{ house.aptName }}
+    </b-col> -->
+    <b-col class="text-left">
+      [{{ house.sidoName }}] {{ house.aptName }}
     </b-col>
   </b-row>
 </template>

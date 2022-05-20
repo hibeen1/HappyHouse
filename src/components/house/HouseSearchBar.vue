@@ -1,5 +1,54 @@
 <template>
-  <div class="form-group form-inline justify-content-center">
+  <table class="table table-borderless">
+    <tr>
+      <td>
+        <label for="sido">동으로 검색</label><br />
+        <label for="sido">시도 : </label>
+        <b-form-select v-model="sidoCode" :options="sidos" @change="gugunList">
+        </b-form-select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="gugun">구군 : </label>
+        <b-form-select v-model="gugunCode" :options="guguns" @change="dongList">
+        </b-form-select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="dong">읍면동 : </label>
+        <b-form-select v-model="dongCode" :options="dongs" @change="listByDong">
+        </b-form-select>
+      </td>
+    </tr>
+    <tr>
+      <hr />
+      <label class="mr-2 ml-3" for="dong">아파트 이름으로 검색</label>
+      <br />
+      <div class="input-group mb-3 px-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="이름 입력"
+          aria-label="이름 입력"
+          aria-describedby="button-addon2"
+          v-model="aptName"
+        />
+        <div class="input-group-append">
+          <button
+            @click="listByName"
+            class="btn btn-primary"
+            type="button"
+            id="button-addon2"
+          >
+            검색
+          </button>
+        </div>
+      </div>
+    </tr>
+  </table>
+  <!-- <div class="form-group form-inline justify-content-center">
     <label class="mr-2" for="sido">시도 : </label>
     <b-form-select v-model="sidoCode" :options="sidos" @change="gugunList">
     </b-form-select>
@@ -9,12 +58,7 @@
     <label class="mr-2 ml-3" for="dong">읍면동 : </label>
     <b-form-select v-model="dongCode" :options="dongs" @change="searchApt2">
     </b-form-select>
-    <label class="mr-2 ml-3" for="dong">아파트 이름 : </label>
-    <input type="text" id="aptName" style="margin-right: 10pt" />
-    <button type="button" id="aptSearchBtn" class="btn btn-primary">
-      검색
-    </button>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -29,6 +73,7 @@ export default {
       sidoCode: null,
       gugunCode: null,
       dongCode: null,
+      aptName: "",
     };
   },
   computed: {
@@ -48,7 +93,8 @@ export default {
       "getSido",
       "getGugun",
       "getDong",
-      "getHouseList2",
+      "searchByDong",
+      "searchByName",
     ]),
     ...mapMutations(houseStore, [
       "CLEAR_SIDO_LIST",
@@ -73,9 +119,16 @@ export default {
     // searchApt() {
     //   if (this.gugunCode) this.getHouseList(this.gugunCode);
     // },
-    searchApt2() {
+    listByDong() {
       // 동 이름으로 검색
-      if (this.dongCode) this.getHouseList2(this.dongCode);
+      if (this.dongCode) this.searchByDong(this.dongCode);
+    },
+    listByName() {
+      console.log(this.aptName);
+      if (this.aptName) {
+        this.searchByName(this.aptName);
+        this.aptName = "";
+      }
     },
   },
 };

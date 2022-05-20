@@ -1,23 +1,7 @@
 <template>
-  <b-container>
-    <b-row>
-      <b-col>
-        <div id="map" style="width: 100%; height: 500px"></div>
-      </b-col>
-    </b-row>
-    <b-container v-if="house" class="bv-example-row">
-      <b-row>
-        <b-col
-          ><h3>{{ house.aptName }}</h3></b-col
-        >
-      </b-row>
-      <b-row class="mb-2 mt-1">
-        <b-col
-          ><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img
-        ></b-col>
-      </b-row>
-    </b-container>
-  </b-container>
+  <div id="outer">
+    <div id="map" style="width: 100%; height: 1000px"></div>
+  </div>
 </template>
 
 <script>
@@ -287,5 +271,11 @@ export default {
 }
 .info .link {
   color: #5085bb;
+}
+
+#outer,
+table {
+  width: 100%;
+  height: 100%;
 }
 </style>

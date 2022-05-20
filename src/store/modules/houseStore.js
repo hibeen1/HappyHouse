@@ -3,7 +3,8 @@ import {
   gugunList,
   dongList,
   // houseList,
-  houseList2,
+  searchByDong,
+  searchByName,
 } from "@/api/house.js";
 
 const houseStore = {
@@ -46,6 +47,10 @@ const houseStore = {
     SET_HOUSE_LIST(state, houses) {
       state.houses = houses;
       // console.log(houses);
+    },
+    CLEAR_HOUSE_LIST(state) {
+      state.houses = [];
+      state.house = null;
     },
     SET_DETAIL_HOUSE(state, house) {
       // console.log("Mutations", house);
@@ -118,14 +123,34 @@ const houseStore = {
     //     },
     //   );
     // },
-    getHouseList2: ({ commit }, dongCode) => {
+    searchByDong: ({ commit }, dongCode) => {
       const params = { dong: dongCode };
-      houseList2(
+      searchByDong(
         params,
         (response) => {
           //   console.log(response.data.response.body.items.item);
           console.log(response);
           commit("SET_HOUSE_LIST", response.data);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    searchByName: ({ commit }, aptName) => {
+      const params = { aptName: aptName };
+      searchByName(
+        params,
+        (response) => {
+          //   console.log(response.data.response.body.items.item);
+          console.log(response);
+
+          let temp = response.data;
+          temp = temp.sort((o1, o2) => {
+            return o1.sidoCode - o2.sidoCode;
+          });
+
+          commit("SET_HOUSE_LIST", temp);
         },
         (error) => {
           console.log(error);
