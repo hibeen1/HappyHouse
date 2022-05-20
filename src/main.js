@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import vuetify from "@/plugins/vuetify";
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
@@ -20,4 +21,5 @@ new Vue({
   router,
   store,
   render: (h) => h(App),
+  vuetify,
 }).$mount("#app");
