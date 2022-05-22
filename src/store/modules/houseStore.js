@@ -123,8 +123,8 @@ const houseStore = {
     //     },
     //   );
     // },
-    searchByDong: ({ commit }, dongCode) => {
-      const params = { dong: dongCode, dealYear: 2015, dealMonth: 1 };
+    searchByDong: ({ commit }, { dong, dealYear, dealMonth }) => {
+      const params = { dong, dealYear, dealMonth };
       searchByDong(
         params,
         (response) => {
@@ -137,8 +137,8 @@ const houseStore = {
         },
       );
     },
-    searchByName: ({ commit }, aptName) => {
-      const params = { aptName: aptName };
+    searchByName: ({ commit }, { aptName, dealYear, dealMonth }) => {
+      const params = { aptName, dealYear, dealMonth };
       searchByName(
         params,
         (response) => {

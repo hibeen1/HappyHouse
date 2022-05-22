@@ -1,6 +1,30 @@
 <template>
   <table class="table table-borderless">
     <tr>
+      <td style="border-bottom: 2px solid grey">
+        <label for="year">년도 : &nbsp;</label>
+        <b-form-select style="width: 150px" v-model="year" :options="yearList">
+        </b-form-select>
+        <label for="month">&nbsp; 월 : &nbsp;</label>
+        <b-form-select
+          v-if="year != 2022"
+          v-model="month"
+          style="width: 100px"
+          :options="monthList"
+          @change="sidoList"
+        >
+        </b-form-select>
+        <b-form-select
+          v-else
+          v-model="month"
+          style="width: 100px"
+          :options="monthListLastYear"
+          @change="sidoList"
+        >
+        </b-form-select>
+      </td>
+    </tr>
+    <tr>
       <td>
         <label for="sido">동으로 검색</label><br />
         <label for="sido">시도 : </label>
@@ -48,17 +72,6 @@
       </div>
     </tr>
   </table>
-  <!-- <div class="form-group form-inline justify-content-center">
-    <label class="mr-2" for="sido">시도 : </label>
-    <b-form-select v-model="sidoCode" :options="sidos" @change="gugunList">
-    </b-form-select>
-    <label class="mr-2 ml-3" for="gugun">구군 : </label>
-    <b-form-select v-model="gugunCode" :options="guguns" @change="dongList">
-    </b-form-select>
-    <label class="mr-2 ml-3" for="dong">읍면동 : </label>
-    <b-form-select v-model="dongCode" :options="dongs" @change="searchApt2">
-    </b-form-select>
-  </div> -->
 </template>
 
 <script>
@@ -74,19 +87,43 @@ export default {
       gugunCode: null,
       dongCode: null,
       aptName: "",
+      yearList: [
+        "2015",
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+      ],
+      monthList: [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+      ],
+      monthListLastYear: ["01", "02", "03", "04", "05"],
+      year: "",
+      month: "",
     };
+  },
+  created() {
+    this.CLEAR_SIDO_LIST();
   },
   computed: {
     ...mapState(houseStore, ["sidos", "guguns", "dongs", "houses"]),
     // sidos() {
     //   return this.$store.state.sidos;
     // },
-  },
-  created() {
-    // this.$store.dispatch("getSido");
-    // this.sidoList();
-    this.CLEAR_SIDO_LIST();
-    this.getSido();
   },
   methods: {
     ...mapActions(houseStore, [
@@ -101,9 +138,10 @@ export default {
       "CLEAR_GUGUN_LIST",
       "CLEAR_DONG_LIST",
     ]),
-    // sidoList() {
-    //   this.getSido();
-    // },
+    sidoList() {
+      this.CLEAR_SIDO_LIST();
+      this.getSido();
+    },
     gugunList() {
       console.log(this.sidoCode);
       this.CLEAR_GUGUN_LIST();
@@ -121,13 +159,28 @@ export default {
     // },
     listByDong() {
       // 동 이름으로 검색
-      if (this.dongCode) this.searchByDong(this.dongCode);
+      if (this.dongCode) {
+        this.searchByDong({
+          dong: this.dongCode,
+          dealYear: this.year,
+          dealMonth: this.month,
+        });
+      }
     },
     listByName() {
-      console.log(this.aptName);
       if (this.aptName) {
-        this.searchByName(this.aptName);
-        this.aptName = "";
+        if (!this.year || !this.month) {
+          alert("💡 년도 또는 월이 선택되지 않았습니다!");
+        } else {
+          this.searchByName({
+            aptName: this.aptName,
+            dealYear: this.year,
+            dealMonth: this.month,
+          });
+          this.aptName = "";
+        }
+      } else {
+        alert("💡 한 글자 이상 입력 필수!!");
       }
     },
   },
