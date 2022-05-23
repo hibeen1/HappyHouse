@@ -132,6 +132,7 @@ const houseStore = {
           });
 
           commit("SET_HOUSE_LIST", temp);
+          console.log("완료");
         },
         (error) => {
           console.log(error);

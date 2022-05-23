@@ -53,14 +53,15 @@ const memberStore = {
         () => {},
       );
     },
-    getUserInfo({ commit, dispatch }, token) {
+    async getUserInfo({ commit, dispatch }, token) {
       let decode_token = jwt_decode(token);
-      findById(
+      await findById(
         decode_token.userid,
         (response) => {
           if (response.data.message === "success") {
             commit("SET_USER_INFO", response.data.userInfo);
             dispatch("getUserFavList", response.data.userInfo.userid);
+            console.log("dispatch");
           } else {
             console.log("유저 정보 없음!!");
           }
@@ -70,9 +71,10 @@ const memberStore = {
         },
       );
     },
-    getUserFavList: ({ commit }, userid) => {
+    async getUserFavList({ commit }, userid) {
       const params = { userid };
-      listFavorite(
+      console.log("FavList 호출");
+      await listFavorite(
         params,
         (response) => {
           commit("SET_USER_FAVORITE", response.data);

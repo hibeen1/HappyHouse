@@ -24,7 +24,7 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
-import { addFavorite, listFavorite } from "@/api/favorite";
+import { addFavorite, deleteFavorite } from "@/api/favorite";
 
 const houseStore = "houseStore";
 const memberStore = "memberStore";
@@ -35,6 +35,7 @@ export default {
     return {
       isColor: false,
       isFavorite: false,
+      userid: "",
     };
   },
   props: {
@@ -44,18 +45,22 @@ export default {
     ...mapState(memberStore, ["userFavorite", "userInfo"]),
   },
   created() {
-    this.isFavorite = false;
+    if (this.checkUserInfo()) {
+      this.userid = this.checkUserInfo().userid;
+      this.isFavorite = false;
 
-    for (let apt of this.userFavorite) {
-      if (apt.aptCode == this.house.aptCode) {
-        this.isFavorite = true;
-        break;
+      for (let apt of this.userFavorite) {
+        if (apt.aptCode == this.house.aptCode) {
+          this.isFavorite = true;
+          break;
+        }
       }
     }
   },
   methods: {
     ...mapActions(houseStore, ["detailHouse"]),
     ...mapGetters(memberStore, ["checkUserInfo"]),
+    ...mapActions(memberStore, ["getUserFavList"]),
     selectHouse() {
       // console.log("listRow : ", this.house);
       // this.$store.dispatch("getHouse", this.house);
@@ -64,40 +69,47 @@ export default {
     colorChange(flag) {
       this.isColor = flag;
     },
-    changeCheck() {
+    async changeCheck() {
       if (this.isFavorite) {
         console.log("관심 목록 추가");
-        if (this.checkUserInfo().userid) {
+        if (this.userid) {
           const params = {
-            userid: this.checkUserInfo().userid,
+            userid: this.userid,
             aptCode: this.house.aptCode,
           };
-          addFavorite(
+          await addFavorite(
             params,
             (response) => {
               console.log("서버 갔다옴");
+              this.getUserFavList(this.userid);
             },
             (error) => {
               console.log("서버 에러 발생");
+              console.log(error);
             },
           );
         }
       } else {
         console.log("관심 목록 제거");
+        if (this.userid) {
+          const params = {
+            userid: this.userid,
+            aptCode: this.house.aptCode,
+          };
+          console.log(params);
+          await deleteFavorite(
+            params,
+            (response) => {
+              console.log("서버 갔다옴");
+              this.getUserFavList(this.userid);
+            },
+            (error) => {
+              console.log("서버 에러 발생");
+              console.log(error);
+            },
+          );
+        }
       }
-    },
-    listFavorite() {
-      const params = { userid: this.checkUserInfo().userid };
-      listFavorite(
-        params,
-        (response) => {
-          console.log("서버 갔다옴");
-          console.log(response);
-        },
-        (error) => {
-          console.log("서버 에러 발생");
-        },
-      );
     },
   },
 };

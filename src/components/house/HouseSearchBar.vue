@@ -182,7 +182,7 @@ export default {
             dealYear: this.year,
             dealMonth: this.month,
           });
-          this.aptName = "";
+          // this.aptName = "";
         }
       } else {
         alert("💡 한 글자 이상 입력 필수!!");
