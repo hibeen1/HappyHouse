@@ -16,6 +16,10 @@
     </b-col> -->
     <b-col class="text-left">
       [{{ house.sidoName }}] {{ house.apartmentName }}
+      <div style="text-align: right">
+        <input id="heart" type="checkbox" v-model="isFavorite" />
+        <label for="heart"></label>
+      </div>
     </b-col>
   </b-row>
 </template>
@@ -30,6 +34,7 @@ export default {
   data() {
     return {
       isColor: false,
+      isFavorite: true,
     };
   },
   props: {
@@ -50,6 +55,44 @@ export default {
 </script>
 
 <style scoped>
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  position: relative;
+  padding-left: 35px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+input[type="checkbox"] + label:before {
+  content: "\1F5A4";
+  top: -11px;
+  left: -8px;
+  border: 1px solid transparent;
+  padding: 10px;
+  border-radius: 3px;
+  display: block;
+  position: absolute;
+  transition: 0.5s ease;
+}
+
+input[type="checkbox"]:checked + label:before {
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+input[type="checkbox"]:checked + label:after {
+  content: "\1F49B";
+  font-size: 18px;
+  position: absolute;
+  top: -1px;
+  left: 1px;
+  color: palevioletred;
+  transition: 0.5s ease;
+}
+
 .apt {
   width: 50px;
 }
