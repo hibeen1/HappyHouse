@@ -3,7 +3,7 @@ import { getArticle } from "@/api/board";
 const boardStore = {
   namespaced: true,
   state: {
-    article: getArticle(),
+    // article: getArticle(),
   },
   getters: {
     checkArticle: function (state) {

@@ -111,63 +111,56 @@ export default {
     },
   },
   mounted() {
-    if (window.kakao && window.kakao.maps) {
-      this.initMap();
-    } else {
-      const script = document.createElement("script");
-      script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=2a0f6891f55df01ae4f0b78742c5e7a5&libraries=services";
-      /* global kakao */
-      script.addEventListener("load", () => {
-        kakao.maps.load(this.initMap);
+    this.$nextTick(function () {
+      if (window.kakao && window.kakao.maps) {
+        this.initMap();
+      } else {
+        const script = document.createElement("script");
+        script.src =
+          "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=2a0f6891f55df01ae4f0b78742c5e7a5&libraries=services";
+        /* global kakao */
+        script.addEventListener("load", () => {
+          kakao.maps.load(this.initMap);
 
-        // 로드뷰 시작
-        this.container = document.getElementById("container"); // 지도와 로드뷰를 감싸고 있는 div 입니다
-        this.mapWrapper = document.getElementById("mapWrapper"); // 지도를 감싸고 있는 div 입니다
-        this.btnRoadview = document.getElementById("btnRoadview"); // 지도 위의 로드뷰 버튼, 클릭하면 지도는 감춰지고 로드뷰가 보입니다
-        this.btnMap = document.getElementById("btnMap"); // 로드뷰 위의 지도 버튼, 클릭하면 로드뷰는 감춰지고 지도가 보입니다
-        this.rvContainer = document.getElementById("roadview"); // 로드뷰를 표시할 div 입니다
-        this.mapContainer = document.getElementById("map"); // 지도를 표시할 div 입니다
-        // 로드뷰 끝
+          kakao.maps.load(() => {
+            // 장소 검색 객체를 생성합니다
+            this.ps = new kakao.maps.services.Places();
 
-        kakao.maps.load(() => {
-          // 장소 검색 객체를 생성합니다
-          this.ps = new kakao.maps.services.Places();
+            // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+            this.infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-          // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-          this.infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+            //주소-좌표 변환 객체를 생성합니다
+            this.geocoder = new kakao.maps.services.Geocoder();
 
-          //주소-좌표 변환 객체를 생성합니다
-          this.geocoder = new kakao.maps.services.Geocoder();
+            // 상권 정보 시작
+            this.placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
+            this.contentNode = document.createElement("div"); // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
+            // 상권 정보 끝
 
-          // 상권 정보 시작
-          this.placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
-          this.contentNode = document.createElement("div"); // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
-          // 상권 정보 끝
+            // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다
+            this.contentNode.className = "placeinfo_wrap";
 
-          // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다
-          this.contentNode.className = "placeinfo_wrap";
+            // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
+            // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 kakao.maps.event.preventMap 메소드를 등록합니다
+            this.addEventHandle(
+              this.contentNode,
+              "mousedown",
+              kakao.maps.event.preventMap,
+            );
+            this.addEventHandle(
+              this.contentNode,
+              "touchstart",
+              kakao.maps.event.preventMap,
+            );
 
-          // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
-          // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 kakao.maps.event.preventMap 메소드를 등록합니다
-          this.addEventHandle(
-            this.contentNode,
-            "mousedown",
-            kakao.maps.event.preventMap,
-          );
-          this.addEventHandle(
-            this.contentNode,
-            "touchstart",
-            kakao.maps.event.preventMap,
-          );
-
-          // 커스텀 오버레이 컨텐츠를 설정합니다
-          this.placeOverlay.setContent(this.contentNode);
+            // 커스텀 오버레이 컨텐츠를 설정합니다
+            this.placeOverlay.setContent(this.contentNode);
+          });
         });
-      });
 
-      document.head.appendChild(script);
-    }
+        document.head.appendChild(script);
+      }
+    });
   },
   methods: {
     onChangeCategory() {
@@ -338,6 +331,15 @@ export default {
       this.is_show = !this.is_show;
     },
     initMap() {
+      // 로드뷰 시작
+      this.container = document.getElementById("container"); // 지도와 로드뷰를 감싸고 있는 div 입니다
+      this.mapWrapper = document.getElementById("mapWrapper"); // 지도를 감싸고 있는 div 입니다
+      this.btnRoadview = document.getElementById("btnRoadview"); // 지도 위의 로드뷰 버튼, 클릭하면 지도는 감춰지고 로드뷰가 보입니다
+      this.btnMap = document.getElementById("btnMap"); // 로드뷰 위의 지도 버튼, 클릭하면 로드뷰는 감춰지고 지도가 보입니다
+      this.rvContainer = document.getElementById("roadview"); // 로드뷰를 표시할 div 입니다
+      this.mapContainer = document.getElementById("map"); // 지도를 표시할 div 입니다
+      // 로드뷰 끝
+
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567),
