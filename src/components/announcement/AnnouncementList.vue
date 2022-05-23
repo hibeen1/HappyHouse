@@ -6,11 +6,9 @@
       </b-col>
     </b-row>
     <b-row class="mb-1">
-      <b-col class="text-right">
-        <b-button
-          variant="outline-primary"
-          @click="moveWrite()"
-          v-if="userInfo.userid === 'admin'"
+      <b-col class="text-right" v-if="this.userInfo === null"></b-col>
+      <b-col class="text-right" v-else-if="this.userInfo.userid === 'admin'">
+        <b-button variant="outline-primary" @click="moveWrite()"
           >글쓰기</b-button
         >
       </b-col>
@@ -57,6 +55,12 @@ export default {
   data() {
     return {
       articles: [],
+      // userInfo: {
+      //   username: "",
+      //   userid: "",
+      //   userpwd: "",
+      //   email: "",
+      // },
     };
   },
   created() {
@@ -79,6 +83,9 @@ export default {
   methods: {
     moveWrite() {
       this.$router.push({ name: "announcementRegister" });
+    },
+    printUser() {
+      console.log(this.userInfo.userid);
     },
   },
   computed: {

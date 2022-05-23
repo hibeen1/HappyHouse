@@ -19,6 +19,22 @@ function idCheck(userid, success, fail) {
   api.get(`/user/idcheck`).then(success).catch(fail);
 }
 
-// function logout(success, fail)
+function modifyMember(userInfo, success, fail) {
+  api
+    .put(`/user/${userInfo.userid}`, JSON.stringify(userInfo))
+    .then(success)
+    .catch(fail);
+}
 
-export { login, findById, registerMemeber, idCheck };
+function deleteMember(userid, success, fail) {
+  api.delete(`/user/${userid}`).then(success).catch(fail);
+}
+
+export {
+  login,
+  findById,
+  registerMemeber,
+  idCheck,
+  modifyMember,
+  deleteMember,
+};

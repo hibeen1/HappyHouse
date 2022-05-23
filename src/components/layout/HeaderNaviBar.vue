@@ -34,12 +34,6 @@
             ></b-nav-item
           >
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'instagram' }" class="link"
-              ><b-icon icon="instagram" font-scale="1.5"></b-icon>
-              인별그램</router-link
-            ></b-nav-item
-          >
-          <b-nav-item href="#"
             ><router-link :to="{ name: 'house' }" class="link"
               ><b-icon icon="house-fill" font-scale="1.5"></b-icon>
               아파트정보</router-link
@@ -49,6 +43,12 @@
             ><router-link :to="{ name: 'todo' }" class="link"
               ><b-icon icon="calendar-check" font-scale="1.5"></b-icon>
               TodoList</router-link
+            ></b-nav-item
+          >
+          <b-nav-item href="#"
+            ><router-link :to="{ name: 'instagram' }" class="link"
+              ><b-icon icon="instagram" font-scale="1.5"></b-icon>
+              개발자정보</router-link
             ></b-nav-item
           >
         </b-navbar-nav>
@@ -121,9 +121,12 @@ export default {
     ...mapMutations(memberStore, ["SET_IS_LOGIN", "SET_USER_INFO"]),
     onClickLogout() {
       // console.log("memberStore : ", ms);
+      console.log("여기!!");
+      console.log(this);
       this.SET_IS_LOGIN(false);
       this.SET_USER_INFO(null);
       sessionStorage.removeItem("access-token");
+      console.log(this.$route.path);
       if (this.$route.path != "/") this.$router.push({ name: "home" });
     },
   },

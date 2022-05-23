@@ -11,6 +11,7 @@ const memberStore = {
   },
   getters: {
     checkUserInfo: function (state) {
+      console.log(state);
       return state.userInfo;
     },
   },

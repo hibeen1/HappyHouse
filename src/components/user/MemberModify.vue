@@ -11,7 +11,7 @@
         <b-jumbotron>
           <template #header>My Page</template>
 
-          <template #lead> 내 정보 확인페이지입니다. </template>
+          <template #lead> 내 정보 수정페이지입니다. </template>
 
           <hr class="my-4" />
 
@@ -47,10 +47,9 @@
           </b-container>
           <hr class="my-4" />
 
-          <b-button variant="primary" class="mr-1" @click="moveModifyMember"
-            >정보수정</b-button
+          <b-button variant="primary" class="mr-1" @click="modifyMyInfo"
+            >확인</b-button
           >
-          <b-button variant="danger" @click="deleteMyInfo">회원탈퇴</b-button>
         </b-jumbotron>
       </b-col>
       <b-col></b-col>
@@ -59,35 +58,51 @@
 </template>
 
 <script>
-import { deleteMember } from "@/api/member";
-import { mapState, mapMutations } from "vuex";
+import { modifyMember } from "@/api/member";
+import { mapState } from "vuex";
 
 const memberStore = "memberStore";
 
 export default {
-  name: "MemberMyPage",
-  components: {},
+  name: "MemberModify",
+  data() {
+    return {
+      userInfo: {
+        username: "",
+        userid: "",
+        userpwd: "",
+        email: "",
+      },
+    };
+  },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },
+  created() {
+    this.userInfo = memberStore.userInfo;
+  },
   methods: {
-    ...mapMutations(memberStore, ["SET_IS_LOGIN", "SET_USER_INFO"]),
-    moveModifyMember() {
-      this.$router.push({ name: "memberModify" });
-    },
-    deleteMyInfo() {
-      if (
-        confirm(
-          "회원정보가 삭제되면 되돌릴 수 없습니다. 정말로 탈퇴하시겠습니까?",
-        )
-      ) {
-        deleteMember(this.userInfo.userid, () => {
-          this.SET_IS_LOGIN(false);
-          this.SET_USER_INFO(null);
-          sessionStorage.removeItem("access-token");
-          this.$router.push({ name: "home" });
-        });
-      }
+    modifyMyInfo() {
+      modifyMember(
+        {
+          username: this.userInfo.username,
+          userid: "",
+          userpwd: "",
+          email: "",
+        },
+        ({ data }) => {
+          let msg = "수정 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "수정이 완료되었습니다.";
+          }
+          alert(msg);
+          // 현재 route를 /list로 변경.
+          this.$router.push({ name: "mypage" });
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
     },
   },
 };

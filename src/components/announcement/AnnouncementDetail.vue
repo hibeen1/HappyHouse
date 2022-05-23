@@ -9,7 +9,8 @@
       <b-col class="text-left">
         <b-button variant="outline-primary" @click="listArticle">목록</b-button>
       </b-col>
-      <b-col class="text-right">
+      <b-col class="text-right" v-if="this.userInfo.userid === null"></b-col>
+      <b-col class="text-right" v-else-if="this.userInfo.userid === 'admin'">
         <b-button
           variant="outline-info"
           size="sm"
@@ -43,12 +44,14 @@
 <script>
 // import moment from "moment";
 import { getArticle, deleteArticle } from "@/api/announcement";
+import store from "@/store/index.js";
 
 export default {
   name: "AnnouncementDetail",
   data() {
     return {
       article: {},
+      userInfo: store.getters["memberStore/checkUserInfo"],
     };
   },
   computed: {

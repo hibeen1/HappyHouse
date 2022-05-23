@@ -26,6 +26,48 @@ const onlyAuthUser = async (to, from, next) => {
   }
 };
 
+const onlyAdmin = async (to, from, next) => {
+  // console.log(store);
+  const checkUserInfo = store.getters["memberStore/checkUserInfo"];
+  const getUserInfo = store._actions["memberStore/getUserInfo"];
+  let token = sessionStorage.getItem("access-token");
+  if (checkUserInfo == null && token) {
+    await getUserInfo(token);
+  }
+  if (checkUserInfo === null) {
+    alert("로그인이 필요한 페이지입니다..");
+    next({ name: "signIn" });
+    // router.push({ name: "signIn" });
+  } else if (checkUserInfo.userid === "admin") {
+    // console.log("로그인 했다.");
+    console.log("관리자입니당!!");
+    next();
+  } else {
+    alert("관리자만이 접근할 수 있습니다.");
+    next({ name: "home" });
+  }
+};
+
+const articleAuth = async (to, from, next) => {
+  // console.log(store);
+  const checkUserInfo = store.getters["memberStore/checkUserInfo"];
+  const getUserInfo = store._actions["memberStore/getUserInfo"];
+  let token = sessionStorage.getItem("access-token");
+  if (checkUserInfo == null && token) {
+    await getUserInfo(token);
+  }
+  if (checkUserInfo === null) {
+    alert("로그인이 필요한 페이지입니다..");
+    next({ name: "signIn" });
+    // router.push({ name: "signIn" });
+  } else {
+    console.log("여기ㅏ!!!!!!!!!!!!!!!!!!!");
+    console.log(from);
+    // console.log("로그인 했다.");
+    next();
+  }
+};
+
 const routes = [
   {
     path: "/",
@@ -53,6 +95,12 @@ const routes = [
         beforeEnter: onlyAuthUser,
         component: () => import("@/components/user/MemberMyPage.vue"),
       },
+      {
+        path: "mypage/modify",
+        name: "memberModify",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/user/MemberModify.vue"),
+      },
     ],
   },
   {
@@ -70,18 +118,21 @@ const routes = [
       {
         path: "write",
         name: "announcementRegister",
+        beforeEnter: onlyAdmin,
         component: () =>
           import("@/components/announcement/AnnouncementRegister.vue"),
       },
       {
         path: "detail/:articleno",
         name: "announcementDetail",
+        beforeEnter: onlyAuthUser,
         component: () =>
           import("@/components/announcement/AnnouncementDetail.vue"),
       },
       {
         path: "modify/:articleno",
         name: "announcementModify",
+        beforeEnter: onlyAdmin,
         component: () =>
           import("@/components/announcement/AnnouncementModify.vue"),
       },
@@ -113,7 +164,8 @@ const routes = [
       {
         path: "modify/:articleno",
         name: "boardModify",
-        beforeEnter: onlyAuthUser,
+        beforeEnter: articleAuth,
+        meta: { authRequired: true },
         component: () => import("@/components/board/BoardModify.vue"),
       },
     ],
