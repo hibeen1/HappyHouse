@@ -187,6 +187,20 @@ const routes = [
     beforeEnter: onlyAuthUser,
     component: () => import("@/views/TodoView.vue"),
   },
+  {
+    path: "/favorite",
+    name: "favorite",
+    beforeEnter: onlyAuthUser,
+    component: () => import("@/views/FavoriteView.vue"),
+    redirect: "/favorite/list",
+    children: [
+      {
+        path: "list",
+        name: "favotieList",
+        component: () => import("@/components/favorite/FavoriteList.vue"),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({

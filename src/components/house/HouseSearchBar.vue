@@ -169,7 +169,6 @@ export default {
           dong: this.dongCode,
           dealYear: this.year,
           dealMonth: this.month,
-          userid: this.checkUserInfo().userid,
         });
       }
     },
@@ -182,7 +181,6 @@ export default {
             aptName: this.aptName,
             dealYear: this.year,
             dealMonth: this.month,
-            userid: this.checkUserInfo().userid,
           });
           this.aptName = "";
         }

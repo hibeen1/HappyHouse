@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <b-alert variant="secondary" show><h3>로그인</h3></b-alert>
+    <b-alert variant="secondary" show><h3>회원가입</h3></b-alert>
     <v-row>
       <v-col :cols="3"></v-col>
       <v-col :cols="6">
@@ -8,18 +8,15 @@
           <v-text-field
             label="아이디"
             v-model="userInfo.userid"
-            :rules="[
-              rule.required,
-              rule.minLength,
-              rule.maxLength,
-              rule.idCheck,
-            ]"
+            :rules="[rule.required, rule.minLength, rule.maxLength]"
+            @keyup="idCheck"
           >
           </v-text-field>
           <v-text-field
             label="이름"
             v-model="userInfo.username"
             :rules="[rule.required, rule.maxLength]"
+            :disabled="isId"
           >
           </v-text-field>
           <v-text-field
@@ -27,6 +24,7 @@
             type="password"
             v-model="userInfo.userpwd"
             :rules="[rule.required, rule.minLength, rule.maxLength]"
+            :disabled="isId"
           >
           </v-text-field>
           <v-text-field
@@ -34,6 +32,7 @@
             type="email"
             v-model="userInfo.email"
             :rules="[rule.required, rule.emailRule]"
+            :disabled="isId"
           >
           </v-text-field>
           <v-btn :disabled="!valid" @click="onSubmit">회원가입</v-btn>
@@ -51,6 +50,7 @@ import { registerMemeber, idCheck } from "@/api/member";
 export default {
   data() {
     return {
+      isId: true,
       userInfo: {
         username: "",
         userid: "",
@@ -62,29 +62,31 @@ export default {
         minLength: (v) => v.length >= 6 || "6자 이상 입력해주세요",
         maxLength: (v) => v.length <= 16 || "16자 이하로 입력해주세요",
         emailRule: (v) => /.+@+/.test(v) || "이메일 형식에 맞지 않습니다",
-        // idCheck: (v) => this.idCheck(v),
       },
       valid: true,
     };
   },
   methods: {
-    // idCheck() {
-    //   idCheck(
-    //     this.userInfo.userid,
-    //     ({ data }) => {
-    //       if (data === "success") {
-    //         alert(data);
-    //       } else {
-    //         alert("힝!");
-    //       }
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //       console.log("힝 속았지?");
-    //       console.log(error.response.data);
-    //     },
-    //   );
-    // },
+    idCheck() {
+      if (this.userInfo.userid.length >= 6) {
+        idCheck(
+          {
+            ckid: this.userInfo.userid,
+          },
+          ({ data }) => {
+            if (data.idcount != 0) {
+              alert("이미 사용중인 아이디입니다.");
+              this.isId = true;
+            } else {
+              this.isId = false;
+            }
+          },
+          (error) => {
+            console.log(error);
+          },
+        );
+      }
+    },
     clear() {
       this.userInfo.username = "";
       this.userInfo.userid = "";

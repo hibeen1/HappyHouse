@@ -80,6 +80,7 @@ export default {
       if (this.isLogin) {
         await this.getUserInfo(token);
         this.$router.push({ name: "home" });
+        this.$router.go();
       }
     },
     movePage() {
