@@ -16,7 +16,7 @@ function registerMemeber(user, success, fail) {
 }
 
 function idCheck(userid, success, fail) {
-  api.get(`/user/idcheck`).then(success).catch(fail);
+  api.get(`/user/idcheck`, { params: userid }).then(success).catch(fail);
 }
 
 function modifyMember(userInfo, success, fail) {

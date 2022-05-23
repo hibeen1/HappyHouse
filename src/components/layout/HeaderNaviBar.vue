@@ -127,6 +127,10 @@ export default {
       this.SET_USER_INFO(null);
       sessionStorage.removeItem("access-token");
       console.log(this.$route.path);
+
+      // 새로고침
+      this.$router.go();
+
       if (this.$route.path != "/") this.$router.push({ name: "home" });
     },
   },

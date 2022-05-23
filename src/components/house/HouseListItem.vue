@@ -7,24 +7,16 @@
     :class="{ 'mouse-over-bgcolor': isColor }"
     style="border: 2px solid mediumslateblue; border-radius: 8px"
   >
-    <!-- <b-col cols="1">
-      <b-img
-        thumbnail
-        :src="require(`@/assets/ssafy_logo.png`)"
-        alt="Image 1"
-      ></b-img>
-    </b-col> -->
     <b-col class="text-left">
       [{{ house.sidoName }}] {{ house.apartmentName }}
-      <div style="text-align: right">
+      <div v-if="userInfo != null" style="text-align: right">
         <input
           id="heart"
           type="checkbox"
+          @change="changeCheck"
           v-model="isFavorite"
-          @change="changeHeart"
         />
         <label for="heart"></label>
-        <button type="button" @click="listFavorite">버튼</button>
       </div>
     </b-col>
   </b-row>
@@ -49,7 +41,17 @@ export default {
     house: Object,
   },
   computed: {
-    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(memberStore, ["userFavorite", "userInfo"]),
+  },
+  created() {
+    this.isFavorite = false;
+
+    for (let apt of this.userFavorite) {
+      if (apt.aptCode == this.house.aptCode) {
+        this.isFavorite = true;
+        break;
+      }
+    }
   },
   methods: {
     ...mapActions(houseStore, ["detailHouse"]),
@@ -62,7 +64,7 @@ export default {
     colorChange(flag) {
       this.isColor = flag;
     },
-    changeHeart() {
+    changeCheck() {
       if (this.isFavorite) {
         console.log("관심 목록 추가");
         if (this.checkUserInfo().userid) {
@@ -101,45 +103,7 @@ export default {
 };
 </script>
 
-<style scoped>
-input[type="checkbox"] {
-  display: none;
-}
-
-input[type="checkbox"] + label {
-  position: relative;
-  padding-left: 35px;
-  display: inline-block;
-  font-size: 16px;
-}
-
-input[type="checkbox"] + label:before {
-  content: "\1F5A4";
-  top: -11px;
-  left: -8px;
-  border: 1px solid transparent;
-  padding: 10px;
-  border-radius: 3px;
-  display: block;
-  position: absolute;
-  transition: 0.5s ease;
-}
-
-input[type="checkbox"]:checked + label:before {
-  border: 1px solid transparent;
-  background-color: transparent;
-}
-
-input[type="checkbox"]:checked + label:after {
-  content: "\1F49B";
-  font-size: 18px;
-  position: absolute;
-  top: -1px;
-  left: 1px;
-  color: palevioletred;
-  transition: 0.5s ease;
-}
-
+<style>
 .apt {
   width: 50px;
 }
