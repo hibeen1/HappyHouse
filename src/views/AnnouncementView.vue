@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
     <h3 class="underline-hotpink">
-      <b-icon icon="exclamation-circle" font-scale="1.0"></b-icon> Notice
+      <b-icon icon="exclamation-circle" font-scale="1.0"></b-icon> 공지사항
     </h3>
     <router-view></router-view>
   </b-container>

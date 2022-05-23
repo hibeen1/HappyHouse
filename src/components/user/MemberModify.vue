@@ -19,28 +19,32 @@
             <b-row>
               <b-col cols="2"></b-col>
               <b-col cols="2" align-self="end">아이디</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.userid }}</b-col>
+              ><b-col cols="4" align-self="start">{{
+                this.userInfo.userid
+              }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
             <b-row>
               <b-col cols="2"></b-col>
               <b-col cols="2" align-self="end">이름</b-col
               ><b-col cols="4" align-self="start">{{
-                userInfo.username
+                this.userInfo.username
               }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
             <b-row>
               <b-col cols="2"></b-col>
               <b-col cols="2" align-self="end">이메일</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.email }}</b-col>
+              ><b-col cols="4" align-self="start">{{
+                this.userInfo.email
+              }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
             <b-row>
               <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">가입일</b-col
+              <b-col cols="2" align-self="end">비밀번호</b-col
               ><b-col cols="4" align-self="start">{{
-                userInfo.joindate
+                this.userInfo.userpwd
               }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
@@ -48,7 +52,10 @@
           <hr class="my-4" />
 
           <b-button variant="primary" class="mr-1" @click="modifyMyInfo"
-            >확인</b-button
+            >수정</b-button
+          >
+          <b-button variant="primary" class="mr-1" @click="modifyMyInfo"
+            >취소</b-button
           >
         </b-jumbotron>
       </b-col>
@@ -65,16 +72,6 @@ const memberStore = "memberStore";
 
 export default {
   name: "MemberModify",
-  data() {
-    return {
-      userInfo: {
-        username: "",
-        userid: "",
-        userpwd: "",
-        email: "",
-      },
-    };
-  },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },
@@ -86,9 +83,9 @@ export default {
       modifyMember(
         {
           username: this.userInfo.username,
-          userid: "",
-          userpwd: "",
-          email: "",
+          userid: this.userInfo.username,
+          userpwd: this.userInfo.username,
+          email: this.userInfo.username,
         },
         ({ data }) => {
           let msg = "수정 처리시 문제가 발생했습니다.";

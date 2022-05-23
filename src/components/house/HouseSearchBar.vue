@@ -75,9 +75,10 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
 
 const houseStore = "houseStore";
+const memberStore = "memberStore";
 
 export default {
   name: "HouseSearchBar",
@@ -121,11 +122,13 @@ export default {
   },
   computed: {
     ...mapState(houseStore, ["sidos", "guguns", "dongs", "houses"]),
+    ...mapState(memberStore, ["userInfo"]),
     // sidos() {
     //   return this.$store.state.sidos;
     // },
   },
   methods: {
+    ...mapGetters(memberStore, ["checkUserInfo"]),
     ...mapActions(houseStore, [
       "getSido",
       "getGugun",
@@ -164,6 +167,7 @@ export default {
           dong: this.dongCode,
           dealYear: this.year,
           dealMonth: this.month,
+          userid: this.checkUserInfo().userid,
         });
       }
     },
@@ -176,6 +180,7 @@ export default {
             aptName: this.aptName,
             dealYear: this.year,
             dealMonth: this.month,
+            userid: this.checkUserInfo().userid,
           });
           this.aptName = "";
         }

@@ -25,6 +25,7 @@ const memberStore = {
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
       state.userInfo = userInfo;
+      console.log(userInfo);
     },
   },
   actions: {
