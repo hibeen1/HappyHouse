@@ -104,9 +104,6 @@ const houseStore = {
         },
       );
     },
-    searchFavorite: ({ commit }, userid) => {
-      const params = { userid };
-    },
     searchByDong: ({ commit }, { dong, dealYear, dealMonth }) => {
       const params = { dong, dealYear, dealMonth };
       searchByDong(

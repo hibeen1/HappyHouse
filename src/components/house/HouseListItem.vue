@@ -17,7 +17,12 @@
     <b-col class="text-left">
       [{{ house.sidoName }}] {{ house.apartmentName }}
       <div style="text-align: right">
-        <input id="heart" type="checkbox" v-model="isFavorite" />
+        <input
+          id="heart"
+          type="checkbox"
+          v-model="isFavorite"
+          @change="changeHeart"
+        />
         <label for="heart"></label>
       </div>
     </b-col>
@@ -25,23 +30,29 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
+import { addFavorite } from "@/api/favorite";
 
 const houseStore = "houseStore";
+const memberStore = "memberStore";
 
 export default {
   name: "HouseListItem",
   data() {
     return {
       isColor: false,
-      isFavorite: true,
+      isFavorite: false,
     };
   },
   props: {
     house: Object,
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   methods: {
     ...mapActions(houseStore, ["detailHouse"]),
+    ...mapGetters(memberStore, ["checkUserInfo"]),
     selectHouse() {
       // console.log("listRow : ", this.house);
       // this.$store.dispatch("getHouse", this.house);
@@ -49,6 +60,29 @@ export default {
     },
     colorChange(flag) {
       this.isColor = flag;
+    },
+    changeHeart() {
+      if (this.isFavorite) {
+        console.log("관심 목록 추가");
+        if (this.checkUserInfo().userid) {
+          const params = {
+            userid: this.checkUserInfo().userid,
+            // aptCode: this.house.aptCode,
+          };
+          console.log(params);
+          addFavorite(
+            params,
+            (response) => {
+              console.log("서버 갔다옴");
+            },
+            (error) => {
+              console.log("서버 에러 발생");
+            },
+          );
+        }
+      } else {
+        console.log("관심 목록 제거");
+      }
     },
   },
 };
