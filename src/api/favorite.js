@@ -7,8 +7,8 @@ function listFavorite(userid, success, fail) {
 }
 
 function addFavorite(params, success, fail) {
-  console.log(params);
-  api.post(`/favorite/add`, { params: params }).then(success).catch(fail);
+  console.log("addFavorite: " + params);
+  api.post(`/favorite`, { params: params }).then(success).catch(fail);
 }
 
 function deleteFavorite(params, success, fail) {

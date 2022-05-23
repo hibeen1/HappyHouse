@@ -67,11 +67,10 @@ export default {
         if (this.checkUserInfo().userid) {
           const params = {
             userid: this.checkUserInfo().userid,
-            // aptCode: this.house.aptCode,
+            aptCode: this.house.aptCode,
           };
-          console.log(params);
           addFavorite(
-            params,
+            this.checkUserInfo().userid,
             (response) => {
               console.log("서버 갔다옴");
             },
