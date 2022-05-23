@@ -24,6 +24,7 @@
           @change="changeHeart"
         />
         <label for="heart"></label>
+        <button type="button" @click="listFavorite">버튼</button>
       </div>
     </b-col>
   </b-row>
@@ -31,7 +32,7 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
-import { addFavorite } from "@/api/favorite";
+import { addFavorite, listFavorite } from "@/api/favorite";
 
 const houseStore = "houseStore";
 const memberStore = "memberStore";
@@ -70,7 +71,7 @@ export default {
             aptCode: this.house.aptCode,
           };
           addFavorite(
-            this.checkUserInfo().userid,
+            params,
             (response) => {
               console.log("서버 갔다옴");
             },
@@ -82,6 +83,19 @@ export default {
       } else {
         console.log("관심 목록 제거");
       }
+    },
+    listFavorite() {
+      const params = { userid: this.checkUserInfo().userid };
+      listFavorite(
+        params,
+        (response) => {
+          console.log("서버 갔다옴");
+          console.log(response);
+        },
+        (error) => {
+          console.log("서버 에러 발생");
+        },
+      );
     },
   },
 };
