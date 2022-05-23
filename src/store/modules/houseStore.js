@@ -32,7 +32,7 @@ const houseStore = {
     },
     SET_DONG_LIST(state, dongs) {
       dongs.forEach((dong) => {
-        state.dongs.push({ value: dong.dongCode, text: dong.dongName });
+        state.dongs.push({ value: dong.dongCode, text: dong.dong });
       });
     },
     CLEAR_SIDO_LIST(state) {
@@ -123,8 +123,8 @@ const houseStore = {
     //     },
     //   );
     // },
-    searchByDong: ({ commit }, dongCode) => {
-      const params = { dong: dongCode };
+    searchByDong: ({ commit }, { dong, dealYear, dealMonth }) => {
+      const params = { dong, dealYear, dealMonth };
       searchByDong(
         params,
         (response) => {
@@ -137,8 +137,8 @@ const houseStore = {
         },
       );
     },
-    searchByName: ({ commit }, aptName) => {
-      const params = { aptName: aptName };
+    searchByName: ({ commit }, { aptName, dealYear, dealMonth }) => {
+      const params = { aptName, dealYear, dealMonth };
       searchByName(
         params,
         (response) => {

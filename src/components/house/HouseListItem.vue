@@ -15,7 +15,7 @@
       ></b-img>
     </b-col> -->
     <b-col class="text-left">
-      [{{ house.sidoName }}] {{ house.aptName }}
+      [{{ house.sidoName }}] {{ house.apartmentName }}
     </b-col>
   </b-row>
 </template>
