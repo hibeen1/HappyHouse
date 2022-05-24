@@ -65,17 +65,7 @@
               환영합니다.</label
             ></b-nav-item
           >
-          <b-nav-item
-            class="align-self-center"
-            v-if="userInfo.userid === 'admin'"
-            ><router-link
-              :to="{ name: 'houseMap' }"
-              class="link align-self-center"
-              style="color: tomato"
-              >회원관리</router-link
-            ></b-nav-item
-          >
-          <b-nav-item class="align-self-center" v-else
+          <b-nav-item class="align-self-center"
             ><router-link
               :to="{ name: 'mypage' }"
               class="link align-self-center"
