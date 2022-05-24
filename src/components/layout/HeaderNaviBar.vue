@@ -34,9 +34,9 @@
             ></b-nav-item
           >
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'house' }" class="link"
+            ><router-link :to="{ name: 'favorite' }" class="link"
               ><b-icon icon="house-fill" font-scale="1.5"></b-icon>
-              아파트정보</router-link
+              관심매물</router-link
             ></b-nav-item
           >
           <b-nav-item href="#"

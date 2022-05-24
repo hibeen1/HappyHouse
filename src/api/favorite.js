@@ -21,4 +21,9 @@ async function deleteFavorite(params, success, fail) {
     .catch(fail);
 }
 
-export { listFavorite, addFavorite, deleteFavorite };
+async function getDealList(aptCode, success, fail) {
+  console.log(aptCode);
+  api.get(`/favorite/${aptCode}`).then(success).catch(fail);
+}
+
+export { listFavorite, addFavorite, deleteFavorite, getDealList };

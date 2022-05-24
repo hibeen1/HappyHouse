@@ -410,6 +410,11 @@ export default {
                         <div class="ellipsis">가격: ` +
           this.house.recentPrice +
           `만원</div>
+          <div class="ellipsis">` +
+          this.house.floor +
+          `층 ` +
+          this.house.area +
+          `㎡</div>
                     </div>
                 </div>
             </div>

@@ -49,6 +49,12 @@ export default {
       this.userid = this.checkUserInfo().userid;
       this.isFavorite = false;
 
+      // console.log("정보 불러오기: " + this.userFavorite[0]);
+
+      for (let apt of this.userFavorite) {
+        console.log(apt);
+      }
+
       for (let apt of this.userFavorite) {
         if (apt.aptCode == this.house.aptCode) {
           this.isFavorite = true;

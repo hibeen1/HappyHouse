@@ -11,7 +11,6 @@
           v-model="month"
           style="width: 100px"
           :options="monthList"
-          @change="sidoList"
         >
         </b-form-select>
         <b-form-select
@@ -19,7 +18,6 @@
           v-model="month"
           style="width: 100px"
           :options="monthListLastYear"
-          @change="sidoList"
         >
         </b-form-select>
       </td>
@@ -112,15 +110,16 @@ export default {
         "11",
         "12",
       ],
-      monthListLastYear: ["01", "02", "03", "04", "05"],
-      year: "",
-      month: "",
+      monthListLastYear: ["01", "02", "03", "04"],
+      year: "2022",
+      month: "04",
     };
   },
   created() {
     this.CLEAR_SIDO_LIST();
     this.CLEAR_GUGUN_LIST();
     this.CLEAR_DONG_LIST();
+    this.sidoList();
   },
   computed: {
     ...mapState(houseStore, ["sidos", "guguns", "dongs", "houses"]),
