@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
     <h3 class="underline-steelblue">
-      <b-icon icon="person-lines-fill"></b-icon> Member Service
+      <b-icon icon="person-lines-fill"></b-icon> Happy House
     </h3>
     <router-view></router-view>
   </b-container>
@@ -19,7 +19,7 @@ export default {
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0) 70%,
-    rgba(72, 190, 233, 0.3) 30%
+    rgba(119, 0, 255, 0.3) 30%
   );
 }
 </style>

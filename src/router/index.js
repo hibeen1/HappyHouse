@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import HomeView from "../views/HomeView.vue";
 import HouseView from "@/views/HouseView.vue";
 
 import store from "@/store/index.js";
@@ -180,12 +179,6 @@ const routes = [
     name: "house",
     // beforeEnter: onlyAuthUser,
     component: HouseView,
-  },
-  {
-    path: "/todo",
-    name: "todo",
-    beforeEnter: onlyAuthUser,
-    component: () => import("@/views/TodoView.vue"),
   },
   {
     path: "/favorite",

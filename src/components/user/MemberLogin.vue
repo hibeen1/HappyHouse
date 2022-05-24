@@ -18,7 +18,6 @@
                 id="userid"
                 v-model="user.userid"
                 required
-                placeholder="아이디 입력...."
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
@@ -28,7 +27,6 @@
                 id="userpwd"
                 v-model="user.userpwd"
                 required
-                placeholder="비밀번호 입력...."
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
