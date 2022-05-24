@@ -1,8 +1,5 @@
 <template>
   <div class="bv-example-row mt-3 text-center abs">
-    <h3 class="underline-orange">
-      <b-icon icon="house-fill"></b-icon> House Service
-    </h3>
     <table
       style="margin-bottom: 50px; table-layout: fixed"
       class="table-bordered"
