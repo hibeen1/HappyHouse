@@ -18,6 +18,7 @@
               v-for="(fav, index) in userFavorite"
               :key="fav.aptCode"
               :fav="fav"
+              :userInfo="userInfo"
               :index="index + 1"
             />
           </tbody>
