@@ -4,8 +4,8 @@
       <td>
         <div style="overflow-y: scroll; height: 100%">
           <house-list-item
-            v-for="(house, index) in houses"
-            :key="index"
+            v-for="house in houses"
+            :key="house.aptCode"
             :house="house"
           />
         </div>
