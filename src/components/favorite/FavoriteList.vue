@@ -3,7 +3,7 @@
     <b-row>
       <b-col v-if="userFavorite.length">
         <b-table-simple hover responsive>
-          <b-thead head-variant="dark">
+          <b-thead head-variant="light">
             <b-tr>
               <b-th>순번</b-th>
               <b-th>아파트 이름</b-th>
