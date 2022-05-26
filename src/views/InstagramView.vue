@@ -1,8 +1,5 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-green">
-      <b-icon icon="instagram"></b-icon> 인별그램 Service
-    </h3>
     <b-row rows="10">
       <br />
       <br />

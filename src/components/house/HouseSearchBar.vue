@@ -3,7 +3,7 @@
     <tr>
       <td style="border-bottom: 2px solid grey">
         <label for="year">년도 : &nbsp;</label>
-        <b-form-select style="width: 150px" v-model="year" :options="yearList">
+        <b-form-select style="width: 130px" v-model="year" :options="yearList">
         </b-form-select>
         <label for="month">&nbsp; 월 : &nbsp;</label>
         <b-form-select
