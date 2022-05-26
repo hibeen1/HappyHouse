@@ -18,6 +18,6 @@
 ### <a href="HappyHouse_pdf.pdf">🖥 발표 PPT</a>
 
 ### 시연 영상
-<video width="100%" height="100%" controls="controls">
-  <source src="HappyHouse_최종.mp4" type="video/mp4">
-</video>
+https://user-images.githubusercontent.com/77712564/170439071-35310b6e-6f46-4b7d-a148-479607d7bc46.mp4
+
+
