@@ -16,3 +16,8 @@
 ### <a href="1_설계서.pdf">📄 프로젝트 설계서</a>
 
 ### <a href="HappyHouse_pdf.pdf">🖥 발표 PPT</a>
+
+### 시연 영상
+<video width="100%" height="100%" controls="controls">
+  <source src="HappyHouse_최종.mp4" type="video/mp4">
+</video>
