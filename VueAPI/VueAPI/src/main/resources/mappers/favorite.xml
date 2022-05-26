@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.vue.mapper.FavoriteMapper">
+
+	<!-- 관심목록 전체 조회 -->
+	<select id="getFavoriteList" resultType="FavoriteAptDto">
+		select i.aptCode, i.apartmentName, i.roadName, i.buildYear
+		from houseinfo i join favorite_apt f on i.aptCode = f.aptCode
+		where f.userid = #{userid}; 
+	</select>
+	
+	<!-- 관심매물의 매매내역 전체 조회 -->
+	<select id="getDealInfoList" resultType="HouseInfoDto">
+		select d.dealYear, d.dealMonth, d.dealDay, d.area, d.floor, d.dealAmount recentPrice
+		from housedeal d
+		where d.aptCode = #{aptCode}
+		order by d.no desc;
+	</select>
+	
+	<!-- 관심매물 등록 -->
+	<insert id="insertFavorite" parameterType="favorite">
+		insert into favorite_apt(
+			userid, aptCode
+		) values (
+			#{userid}, #{aptCode}
+		)
+	</insert>
+	
+	<!-- 관심매물 삭제 -->
+	<delete id="deleteFavorite" parameterType="favorite">
+		delete 
+		from favorite_apt 
+		where userid = #{userid} and aptCode = #{aptCode}
+	</delete>
+	
+</mapper>
+

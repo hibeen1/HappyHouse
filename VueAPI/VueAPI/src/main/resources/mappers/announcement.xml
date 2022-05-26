@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.vue.mapper.AnnouncementMapper">
+
+	<!-- 게시글 전체 조회 -->
+	<select id="selectAnnouncement" resultType="announcement">
+		select articleno, userid, subject, content, hit, regtime
+		from announcement 
+		order by articleno desc
+	</select>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="selectAnnouncementByNo" resultType="announcement">
+		select articleno, subject, userid, content, hit, regtime
+		from announcement 
+		where articleno = #{articleno}
+	</select>
+
+	<!-- 게시글 등록 -->
+	<insert id="insertAnnouncement" parameterType="announcement">
+		insert into announcement(
+			subject, userid, content
+		) values (
+			#{subject}, #{userid}, #{content}
+		)
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="updateAnnouncement" parameterType="announcement">
+		update announcement 
+		   set subject = #{subject}, 
+		   	   userid = #{userid}, 
+		   	   content = #{content}
+		 where articleno = #{articleno}
+	</update>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deleteAnnouncement" parameterType="int">
+		delete 
+		from announcement 
+		where articleno = #{articleno}
+	</delete>
+
+</mapper>
+
