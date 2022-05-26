@@ -116,7 +116,7 @@ export default {
     this.$nextTick(function () {
       const script = document.createElement("script");
       script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=2a0f6891f55df01ae4f0b78742c5e7a5&libraries=services";
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey={appkey}&libraries=services";
       /* global kakao */
       script.addEventListener("load", () => {
         kakao.maps.load(this.initMap);
