@@ -13,9 +13,9 @@
 <img src="https://img.shields.io/badge/GitHub-181717?style=plastic&logo=GitHub&logoColor=white"/>
 <img src="https://img.shields.io/badge/Notion-000000?style=plastic&logo=Notion&logoColor=white"/>
 
-### <a href="1_설계서.pdf">📄 프로젝트 설계서</a>
+### <a href="documents/1_설계서.pdf">📄 프로젝트 설계서</a>
 
-### <a href="HappyHouse_pdf.pdf">🖥 발표 PPT</a>
+### <a href="documents/HappyHouse_pdf.pdf">🖥 발표 PPT</a>
 
 ### 시연 영상
 https://user-images.githubusercontent.com/77712564/170439071-35310b6e-6f46-4b7d-a148-479607d7bc46.mp4
