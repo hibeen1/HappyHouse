@@ -15,4 +15,4 @@
 
 ### <a href="1_설계서.pdf">📄 프로젝트 설계서</a>
 
-### <a href="#">🖥 발표 PPT</a>
+### <a href="HappyHouse.pptx">🖥 발표 PPT</a>
